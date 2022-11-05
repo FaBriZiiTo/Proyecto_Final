@@ -5,24 +5,13 @@ using UnityEngine;
 public class LogicaAgarre : MonoBehaviour
 {
     public GameObject Hand;
+    public GameObject LeftHandIndex1;
     private GameObject PickObject = null;
 
     void Update()
     {
-        if (PickObject != null)//pregunta si tenemos un objeto dentro
-        {
-            if (Input.GetKey("q"))
-            {
-                PickObject.GetComponent<Rigidbody>().useGravity = true;
 
-                PickObject.GetComponent<Rigidbody>().isKinematic = false;
-
-                PickObject.gameObject.transform.SetParent(null);// el emparentamiento se vuelve nulo
-
-                PickObject = null;//vuelve a la referneia nula
-            }
-        }
-
+        Soltar();
     }
 
     private void OnTriggerStay(Collider other)//Mientras este activado la accion
@@ -38,9 +27,25 @@ public class LogicaAgarre : MonoBehaviour
 
                 other.transform.position = Hand.transform.position;//se pasa el objeto a al punto de las manos (Hand)
 
-                other.gameObject.transform.SetParent(Hand.gameObject.transform);//transforma en hijo el objeto  agarrar
+                other.gameObject.transform.SetParent(Hand.gameObject.transform);//el objeto se transforma en hijo de objeto vacion hand
 
                 PickObject = other.gameObject;//asigna una referencia del objeto ha agarrar
+            }
+        }
+    }
+    public void Soltar()
+    {
+        if (PickObject != null)//pregunta si tenemos un objeto dentro
+        {
+            if (Input.GetKey("q"))
+            {
+                PickObject.GetComponent<Rigidbody>().useGravity = true;
+
+                PickObject.GetComponent<Rigidbody>().isKinematic = false;
+
+                PickObject.gameObject.transform.SetParent(null);// el emparentamiento se vuelve nulo
+
+                PickObject = null;//vuelve a la referencia nula
             }
         }
     }

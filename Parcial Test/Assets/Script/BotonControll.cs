@@ -27,7 +27,7 @@ public class BotonControll : MonoBehaviour
         if (other.tag =="ObjetoAtraparB")
         {
             Destroy(compuerta);
-            
+            Destroy(TerraB);
         }
     }
 

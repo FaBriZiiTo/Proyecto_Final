@@ -56,6 +56,7 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Enemy01.cs" />
     <Compile Include="Assets\Animation\VolumetricLines\BuiltInRenderPipeline\ExampleScenes\ExampleScripts\ShotBehavior.cs" />
     <Compile Include="Assets\Animation\VolumetricLines\Scripts\VolumetricLineVertexData.cs" />
     <Compile Include="Assets\Script\BotonControll.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="Assets\Script\LogicaAgarre.cs" />
     <Compile Include="Assets\Script\MovCamera.cs" />
     <Compile Include="Assets\Script\LogicaPlayer.cs" />
-    <Compile Include="Assets\Script\Enemy01.cs" />
+    <Compile Include="Assets\Script\LogicaAgachar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Animation\VolumetricLines\BuiltInRenderPipeline\Shaders\_LineStripShader.cginc" />
