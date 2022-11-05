@@ -4,36 +4,39 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    
+
     [SerializeField]
     private float speed = 5;
     [SerializeField]
     private float speedRotate = 250;
     [SerializeField]
-    private float jumpForce = 5f;
+    private float jumpForce = 400; //jumpHeight
 
     private float x, z;
-    public bool isSalto;
-    
+    public bool isSalto;  //grounded
+
     private float initialWalkins;
     private float walkinDown;
 
     public Animator Animado;
     public Rigidbody rb;//se le asigna a rigibody en el script
 
+  
+
     private void Start()
     {
-        isSalto = false;
+        rb = GetComponent<Rigidbody>();
+        //isSalto = false;
         initialWalkins = speed;
         walkinDown = speed * 0.5f;
-       
+
     }
     // Update is called once per frame
     void Update()
     {
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
-        
+
         WalkCrouched();
         Jumping();
 
@@ -47,9 +50,9 @@ public class PlayerController : MonoBehaviour
         Animado.SetFloat("velZ", z);
     }
 
-   public void WalkCrouched()
+    public void WalkCrouched()
     {
-     
+
         if (Input.GetKey(KeyCode.LeftControl)) {
 
 
@@ -60,13 +63,14 @@ public class PlayerController : MonoBehaviour
         {
             Animado.SetBool("agachado", false);
             speed = initialWalkins;
-          
+
         }
         MovePlayer();
     }
+
     public void Jumping()
     {
-        if (isSalto)
+       if (isSalto)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -79,8 +83,8 @@ public class PlayerController : MonoBehaviour
         {
             Animado.SetBool("salto", false);
             Animado.SetBool("tocarSuelo", false);
-
+        
         }
     }
-
+ 
 }
