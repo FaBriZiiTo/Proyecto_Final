@@ -11,6 +11,7 @@ TagManager:
   - portal2
   - portal3
   - portalPiso
+  - sword
   layers:
   - Default
   - TransparentFX

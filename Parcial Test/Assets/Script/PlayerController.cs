@@ -35,6 +35,14 @@ public class PlayerController : MonoBehaviour
 
     public LogicaAgachar logicaAgachar;
     public GameObject ParteSuperiorCorona;
+
+    private void OnTriggerEnter(Collider coll)
+    {
+        if(coll.CompareTag("sword"))
+        {
+            print("Daño");
+        }
+    }
     private void Start()
     {
         isSalto = false;
