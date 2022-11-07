@@ -14,40 +14,40 @@ public class PlayerController : MonoBehaviour
 
     private float x, z;
     public bool isSalto;
-    private bool carrera;
 
 
     private float initialWalkins;
     private float walkinDown;
-    private float walkinDownCuclillas;
     private float walkinPickUp;
     private float SprintRun;
     private float jumpSprint;
 
     public Animator Animado;
     public Rigidbody rb;//se le asigna a rigibody en el script
-    public Arma arma;
+
     //cambio de colicion para agacharse y pararce
     [SerializeField]
     private CapsuleCollider Parado;
     [SerializeField]
     private CapsuleCollider Agachado;
     [SerializeField]
-    private CapsuleCollider echado;
+    private CapsuleCollider echado; 
 
     public LogicaAgachar logicaAgachar;
     public GameObject ParteSuperiorCorona;
+    
+    
+
 
     private void Start()
     {
         isSalto = false;
-        jumpSprint = jumpForce * 0.3f;
+        jumpSprint = jumpForce*0.3f;
         initialWalkins = speed;
-        walkinDown = speed * 0.4f;
-        walkinDownCuclillas = speed * 0.4f;
+        walkinDown = speed * 0.5f;
         walkinPickUp = speed * 0.7f;
         SprintRun = speed * 1.5f;
-
+        
     }
     // Update is called once per frame
     void Update()
@@ -64,39 +64,34 @@ public class PlayerController : MonoBehaviour
 
         Animado.SetFloat("velX", x);
         Animado.SetFloat("velZ", z);
-
+        
         WalkCrouched();
         Jumping();
         Sprint();
-        Disparar();
     }
 
-    public void WalkCrouched()
+   public void WalkCrouched()
     {
-
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
+     
+        if (Input.GetKey(KeyCode.LeftControl)) {
 
 
             Animado.SetBool("agachado", true);
-
+            speed = walkinDown;
 
             //cambio de collider
             Agachado.enabled = true;//collider activado verdadero
             Parado.enabled = false;//collider activado falso
 
             ParteSuperiorCorona.SetActive(true);
-
-            speed = walkinDown;
-
         }
         else
         {
-            //si el contador de logica agachar es igual o menor a 0 no hay un objeto arriba por lo tanto accede a pararse
+         //si el contador de logica agachar es igual o menor a 0 no hay un objeto arriba por lo tanto accede a pararse
             if (logicaAgachar.contadorDeColision <= 0)
             {
                 Animado.SetBool("agachado", false);
-
+                speed = initialWalkins;
 
                 //cambio de collider
 
@@ -104,21 +99,18 @@ public class PlayerController : MonoBehaviour
                 Parado.enabled = true;//collider activado verdadero
 
                 ParteSuperiorCorona.SetActive(false);
-
-                speed = initialWalkins;
             }
-
+            
         }
-
-        if (Input.GetKeyDown(KeyCode.C) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            Animado.SetBool("giro", true);
-
+                Animado.SetBool("giro", true);
+           
         }
         else
         {
             Animado.SetBool("giro", false);
-
+     
         }
     }
     public void Jumping()
@@ -143,52 +135,44 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
         {
-            Animado.SetBool("Sprint", true);
+            Animado.SetBool("Sprint",true);
             speed = SprintRun;
-            carrera = true;
-
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb.AddForce(new Vector3(0, jumpSprint, 0), ForceMode.Impulse);
+            }
         }
         else
         {
             Animado.SetBool("Sprint", false);
             speed = initialWalkins;
-            carrera = false;
         }
-        if (carrera)
+        if (Input.GetKey(KeyCode.F))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            
+            Animado.SetBool("deslizar", true);
+
+            echado.enabled = true;
+            if (echado)
             {
-                rb.AddForce(new Vector3(0, jumpSprint, 0), ForceMode.Impulse);
-            }
-
-            if (Input.GetKey(KeyCode.F))
-            {
-
-                Animado.SetBool("deslizar", true);
-
-                echado.enabled = true;
                 Parado.enabled = false;
-                if (echado)
-                {
-                    ParteSuperiorCorona.SetActive(true);
-                    Animado.SetBool("cuclillas", true);
-                }
-
+                ParteSuperiorCorona.SetActive(true);
+                Animado.SetBool("cuclillas", true);
             }
+            
         }
         else
         {
             if (logicaAgachar.contadorDeColision <= 0)
             {
                 Animado.SetBool("deslizar", false);
-
+                
                 echado.enabled = false;
-                Agachado.enabled = true;
                 if (!echado)
                 {
-
+                    Agachado.enabled = true;
                     ParteSuperiorCorona.SetActive(false);
-
+                    
                 }
 
             }
@@ -197,7 +181,6 @@ public class PlayerController : MonoBehaviour
                 Animado.SetBool("cuclillas", false);
             }
         }
-
     }
     public void OnTriggerStay(Collider other)
     {
@@ -214,54 +197,6 @@ public class PlayerController : MonoBehaviour
                 speed = initialWalkins;
             }
         }
-
     }
-
-    public void Disparar()
-    {
-
-        if (arma.IsArm)
-        {
-            if (Input.GetButton("Fire1"))
-            {
-                Animado.SetBool("shot", true);
-                arma.contenedorArmC.SetActive(true);
-                arma.contenedorArm.SetActive(false);
-                
-            }
-            else
-            {
-                Animado.SetBool("shot", false);
-                arma.contenedorArmC.SetActive(false);
-                arma.contenedorArm.SetActive(true);
-            }
-        }
-       
-
-            if (Input.GetButton("Fire2"))
-            {
-                Animado.SetBool("mira", true);
-                arma.contenedorArmB.SetActive(true);
-                arma.contenedorArm.SetActive(false);
-                if (Input.GetButton("Fire1") && Input.GetButton("Fire2"))
-                {
-                    Animado.SetBool("shot", true);
-                    arma.contenedorArmB.SetActive(false);
-                }
-                else
-                {
-                    Animado.SetBool("shot", false);
-                    arma.contenedorArmC.SetActive(false);
-                }
-            }
-      
-        else
-        {
-            Animado.SetBool("mira", false);
-            arma.contenedorArmB.SetActive(false);
-
-        }
-    }
-    
-    
+   
 }
