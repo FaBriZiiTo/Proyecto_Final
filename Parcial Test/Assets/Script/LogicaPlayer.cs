@@ -17,8 +17,10 @@ public class LogicaPlayer : MonoBehaviour
     private void OnTriggerStay(Collider other)//Mientras este activado la accion
     {
         playerController.isSalto = true;
-
     }
+    
+      
+    
     private void OnTriggerExit(Collider other)//al terminar la accion
     {
         playerController.isSalto = false;
