@@ -15,6 +15,9 @@ public class MovementLaser : MonoBehaviour
     [SerializeField]
     private int direction;
 
+    public GameObject Player;
+    public int damage;
+
 
     // Start is called before the first frame update
     void Update()
@@ -48,21 +51,25 @@ public class MovementLaser : MonoBehaviour
         }
 
     }
-    public void OnCollisionEnter(Collision other)
+    public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.tag == "Player")
         {
-            Destroy(other.gameObject);
+            Player.GetComponent<PlayerData>().vidaPlayer -= damage;
+            //Destroy(other.gameObject);
         }
     }
 
-   /* public void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.name == "Player")
-        {
-            Destroy(other.gameObject);
-            Destroy(transform.gameObject);
-        }
-    }*/
+
+
+
+    /* public void OnCollisionEnter(Collision other)
+     {
+         if (other.gameObject.name == "Player")
+         {
+             Destroy(other.gameObject);
+             Destroy(transform.gameObject);
+         }
+     }*/
 
 }

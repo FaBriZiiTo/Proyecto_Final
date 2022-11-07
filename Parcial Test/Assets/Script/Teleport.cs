@@ -9,6 +9,7 @@ public class Teleport : MonoBehaviour
     private GameObject terraB;
     [SerializeField]
     private GameObject Player;
+    public int damage;
 
     private void Start()
     {
@@ -47,6 +48,7 @@ public class Teleport : MonoBehaviour
         {
 
             Player.transform.position = new Vector3(45.03f, 2.13f, 48.08f);
+            Player.GetComponent<PlayerData>().vidaPlayer -= damage;
 
         }
     }

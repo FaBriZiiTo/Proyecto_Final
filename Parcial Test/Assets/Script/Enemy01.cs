@@ -22,6 +22,8 @@ public class Enemy01 : MonoBehaviour
     public NavMeshAgent agente;
     public float distancia_ataque;
     public float radio_vision;
+
+    public int damage;
     void Start()
     {
         ani = GetComponent<Animator>();
@@ -102,4 +104,5 @@ public class Enemy01 : MonoBehaviour
         atacando = false;
         rango.GetComponent<CapsuleCollider>().enabled = true;
     }
+    
 }

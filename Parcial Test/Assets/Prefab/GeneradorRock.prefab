@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef14459b26b7e8a43bf414b401da9b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rock: {fileID: 8402205411225628898, guid: b98a980fb0da9be4780597c267668949, type: 3}
+  rock: {fileID: 944735555611658230, guid: b98a980fb0da9be4780597c267668949, type: 3}
   initTimeRock: 0
   repeatTimeRock: 5

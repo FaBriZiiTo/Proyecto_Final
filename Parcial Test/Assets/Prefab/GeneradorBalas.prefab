@@ -43,10 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444fc405bae97c64aac143104f71e491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 702800318460091794, guid: da5bc483d2515104d92a0ec2f89c42dc, type: 3}
+  ball: {fileID: 4260178643967179423, guid: da5bc483d2515104d92a0ec2f89c42dc, type: 3}
   initTime: 0
   repeatTime: 1
-  typeMovement: 1
   speed: 1
-  positiveMov: 4
-  negativeMov: 1
+  movimietoA: 0
+  movimietoB: 0
